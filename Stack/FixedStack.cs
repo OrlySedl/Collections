@@ -14,26 +14,31 @@ namespace Orsel
         private T[] items;
        
         /// <summary>
-        /// Количество элементов в массиве по умолчанию.
+        /// Количество элементов в стеке по умолчанию.
         /// </summary>
         private const int defaultCapacity = 100;
 
         /// <summary>
-        /// Размер массива/стека.
+        /// Размер стека.
         /// </summary>
-        public int Capacity { 
+        public int Capacity
+        { 
             get { return items.Length; } 
         }
 
         /// <summary>
         /// Количество элементов в стеке.
         /// </summary>
-        public int Count { get; private set; }
+        public int Count
+        { 
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Конструктор стека.
         /// </summary>
-        /// <param name="сapacity">Размер стека, по умолчанию равен 100.</param>
+        /// <param name="сapacity">Размер стека по умолчанию равен 100.</param>
         public FixedStack(int capacity = defaultCapacity)
         {
             items = new T[capacity];
@@ -53,26 +58,24 @@ namespace Orsel
         /// <summary>
         /// Получить верхний элемент стека с удалением.
         /// </summary>
-        /// <returns>Верхний элемент стека/Элемент данных.</returns>
+        /// <returns>T тип данных. Возвращает верхний элемент стека.</returns>
         public T Pop()
         {
             if (IsEmpty())
                 throw new InvalidOperationException("Стек пуст");
-            return items[Count--];
 
-            //T item = items[--count];
-            //items[count] = default(T); // сбрасываем ссылку
-            //return item;
+            return items[--Count];
         }
 
         /// <summary>
         /// Получить верхний элемент стека без удаления.
         /// </summary>
-        /// <returns>Верхний элемент стека/Элемент данных.</returns>
+        /// <returns>T тип данных. Возвращает верхний элемент стека.</returns>
         public T Top()
         {
             if (IsEmpty())
                 throw new InvalidOperationException("Стек пуст");
+
             return items[Count - 1];
         }
 
@@ -81,7 +84,6 @@ namespace Orsel
         /// </summary>
         public void Clear()
         {
-            items = new T[Capacity];
             Count = 0;
         }
 

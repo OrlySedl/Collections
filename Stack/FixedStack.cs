@@ -51,7 +51,7 @@ namespace Orsel
         public void Push(T item)
         {
             if (IsFull())
-                throw new InvalidOperationException("Стек полон");
+                throw new InvalidOperationException("Стек полон.");
             items[Count++] = item;
         }
 
@@ -62,7 +62,7 @@ namespace Orsel
         public T Pop()
         {
             if (IsEmpty())
-                throw new InvalidOperationException("Стек пуст");
+                throw new InvalidOperationException("Стек пуст.");
 
             return items[--Count];
         }
@@ -74,7 +74,7 @@ namespace Orsel
         public T Top()
         {
             if (IsEmpty())
-                throw new InvalidOperationException("Стек пуст");
+                throw new InvalidOperationException("Стек пуст.");
 
             return items[Count - 1];
         }

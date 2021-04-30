@@ -3,23 +3,23 @@
 namespace Orsel
 {
     /// <summary>
-    /// Стек на основе массива.
+    /// Стек на основе массива, работающий по принципу "последним пришел - первым вышел" (LIFO).
     /// </summary>
-    /// <typeparam name="T">Тип данных, хранимых в стеке.</typeparam>
+    /// <typeparam name="T">Тип элементов в стеке.</typeparam>
     public class ArrayStack<T>
     {
         /// <summary>
-        /// Массив для хранения элементов стека.
+        /// Массив содержащий элементы ArrayStack<T>.
         /// </summary>
         private T[] items;
 
         /// <summary>
-        /// Количество элементов в стеке по умолчанию.
+        /// Емкость хранилища ArrayStack<T> по умолчанию.
         /// </summary>
         private const int defaultCapacity = 100;
 
         /// <summary>
-        /// Размер стека.
+        /// Число элементов выделенной емкости хранилища ArrayStack<T>.
         /// </summary>
         public int Capacity
         {
@@ -27,7 +27,7 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Количество элементов в стеке.
+        /// Число элементов, содержащихся в ArrayStack<T>.
         /// </summary>
         public int Count
         {
@@ -36,18 +36,27 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Проверка на полный стек.
+        ///  Инициализирует новый экземпляр класса ArrayStack<T>, который является пустым и обладает указанной начальной емкостью или емкостью по умолчанию.
         /// </summary>
-        /// <returns>Логический тип данных. True - если стек полон, в ином случае - False.</returns>
+        /// <param name="сapacity">Начальное количество элементов, которое может содержать ArrayStack<T>. По умолчанию значение равно 100.</param>
+        public ArrayStack(int capacity = defaultCapacity)
+        {
+            items = new T[capacity];
+        }
+
+        /// <summary>
+        /// Определяет, является ли текущий экземпляр ArrayStack<T> полным.
+        /// </summary>
+        /// <returns>Значение true, если текущий экземпляр полон; в противном случае — false.</returns>
         private bool IsFull()
         {
             return Count == Capacity;
         }
 
         /// <summary>
-        /// Изменение размера стека.
+        /// Изменяет емкость хранилища текущего экземпляра ArrayStack<T>.
         /// </summary>
-        /// <param name="newCapacity">Новый размер стека.</param>
+        /// <param name="newCapacity">Новая емкость экземпляра ArrayStack<T>.</param>
         private void Resize(int newCapacity)
         {
             T[] tempItems = new T[newCapacity];
@@ -58,18 +67,9 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Конструктор стека.
+        /// Вставляет объект как верхний элемент ArrayStack<T>.
         /// </summary>
-        /// <param name="сapacity">Размер стека по умолчанию равен 100.</param>
-        public ArrayStack(int capacity = defaultCapacity)
-        {
-            items = new T[capacity];
-        }
-
-        /// <summary>
-        /// Добавить данные в стек.
-        /// </summary>
-        /// <param name="item">Добавляемые данные.</param>
+        /// <param name="item">Объект, вставляемый в ArrayStack<T>.</param>
         public void Push(T item)
         {
             if (IsFull())
@@ -78,9 +78,9 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Получить верхний элемент стека с удалением.
+        /// Удаляет и возвращает объект, находящийся в начале ArrayStack<T>.
         /// </summary>
-        /// <returns>T тип данных. Возвращает верхний элемент стека.</returns>
+        /// <returns>Объект, удаляемый из начала ArrayStack<T>.</returns>
         public T Pop()
         {
             if (IsEmpty())
@@ -92,10 +92,10 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Получить верхний элемент стека без удаления.
+        /// Возвращает объект, находящийся в начале ArrayStack<T>, без его удаления.
         /// </summary>
-        /// <returns>T тип данных. Возвращает верхний элемент стека.</returns>
-        public T Top()
+        /// <returns>Объект, находящийся в начале ArrayStack<T>.</returns>
+        public T Peek()
         {
             if (IsEmpty())
                 throw new InvalidOperationException("Стек пуст.");
@@ -104,7 +104,7 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Очистка стека.
+        /// Удаляет все объекты из ArrayStack<T>
         /// </summary>
         public void Clear()
         {
@@ -112,9 +112,9 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Проверка на пустой стек.
+        /// Определяет, является ли текущий экземпляр ArrayStack<T> пустым.
         /// </summary>
-        /// <returns>Логический тип данных. True - если стек пустой, в ином случае - False.</returns>
+        /// <returns>Значение true, если текущий экземпляр пуст; в противном случае — false.</returns>
         public bool IsEmpty()
         {
             return Count == 0;

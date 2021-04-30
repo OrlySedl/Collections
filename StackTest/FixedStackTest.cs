@@ -89,7 +89,7 @@ namespace StackTest
             
             stack.Push(expected);
 
-            Assert.AreEqual(expected, stack.Top());
+            Assert.AreEqual(expected, stack.Peek());
             Assert.AreEqual(expectedCount, stack.Count);
             Assert.AreEqual(expectedCapacity, stack.Capacity);    
         }
@@ -99,7 +99,7 @@ namespace StackTest
         {
             FixedStack<int> stack = new FixedStack<int>();
 
-            Assert.ThrowsException<System.InvalidOperationException>(() => stack.Top());
+            Assert.ThrowsException<System.InvalidOperationException>(() => stack.Peek());
         }
 
         [TestMethod]

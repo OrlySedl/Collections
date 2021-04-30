@@ -80,7 +80,7 @@ namespace StackTest
         }
 
         [TestMethod]
-        public void Top_GetItemWithoutDelete_123_1_100()
+        public void Peek_GetItemWithoutDelete_123_1_100()
         {
             int expected = 123;
             int expectedCount = 1;
@@ -89,17 +89,17 @@ namespace StackTest
             
             stack.Push(expected);
 
-            Assert.AreEqual(expected, stack.Top());
+            Assert.AreEqual(expected, stack.Peek());
             Assert.AreEqual(expectedCount, stack.Count);
             Assert.AreEqual(expectedCapacity, stack.Capacity);    
         }
 
         [TestMethod]
-        public void Top_StackIsEmpty_Throws()
+        public void Peek_StackIsEmpty_Throws()
         {
             FixedStack<int> stack = new FixedStack<int>();
 
-            Assert.ThrowsException<System.InvalidOperationException>(() => stack.Top());
+            Assert.ThrowsException<System.InvalidOperationException>(() => stack.Peek());
         }
 
         [TestMethod]

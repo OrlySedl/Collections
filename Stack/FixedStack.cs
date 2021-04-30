@@ -3,23 +3,23 @@
 namespace Orsel
 {
     /// <summary>
-    /// Стек на основе массива.
+    /// Стек на основе массива с фиксированным размером, работающий по принципу "последним пришел - первым вышел" (LIFO).
     /// </summary>
-    /// <typeparam name="T">Тип данных, хранимых в стеке.</typeparam>
+    /// <typeparam name="T">Тип элементов в стеке.</typeparam>
     public class FixedStack<T>
     {
         /// <summary>
-        /// Массив для хранения элементов стека.
+        /// Массив содержащий элементы FixedStack<T>.
         /// </summary>
         private T[] items;
-       
+
         /// <summary>
-        /// Количество элементов в стеке по умолчанию.
+        /// Емкость хранилища FixedStack<T> по умолчанию.
         /// </summary>
         private const int defaultCapacity = 100;
 
         /// <summary>
-        /// Размер стека.
+        /// Число элементов выделенной емкости хранилища FixedStack<T>.
         /// </summary>
         public int Capacity
         { 
@@ -27,7 +27,7 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Количество элементов в стеке.
+        /// Число элементов, содержащихся в FixedStack<T>.
         /// </summary>
         public int Count
         { 
@@ -36,18 +36,18 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Конструктор стека.
+        /// Инициализирует новый экземпляр класса FixedStack<T>, который является пустым и обладает указанной начальной емкостью или емкостью по умолчанию.
         /// </summary>
-        /// <param name="сapacity">Размер стека по умолчанию равен 100.</param>
+        /// <param name="сapacity">Начальное количество элементов, которое может содержать FixedStack<T>. По умолчанию значение равно 100.</param>
         public FixedStack(int capacity = defaultCapacity)
         {
             items = new T[capacity];
         }
 
         /// <summary>
-        /// Добавить данные в стек.
+        /// Вставляет объект как верхний элемент FixedStack<T>.
         /// </summary>
-        /// <param name="item">Добавляемые данные.</param>
+        /// <param name="item">Объект, вставляемый в FixedStack<T>.</param>
         public void Push(T item)
         {
             if (IsFull())
@@ -56,9 +56,9 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Получить верхний элемент стека с удалением.
+        /// Удаляет и возвращает объект, находящийся в начале FixedStack<T>.
         /// </summary>
-        /// <returns>T тип данных. Возвращает верхний элемент стека.</returns>
+        /// <returns>Объект, удаляемый из начала FixedStack<T>.</returns>
         public T Pop()
         {
             if (IsEmpty())
@@ -68,10 +68,10 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Получить верхний элемент стека без удаления.
+        /// Возвращает объект, находящийся в начале FixedStack<T>, без его удаления.
         /// </summary>
-        /// <returns>T тип данных. Возвращает верхний элемент стека.</returns>
-        public T Top()
+        /// <returns>Объект, находящийся в начале FixedStack<T>.</returns>
+        public T Peek()
         {
             if (IsEmpty())
                 throw new InvalidOperationException("Стек пуст.");
@@ -80,7 +80,7 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Очистка стека.
+        /// Удаляет все объекты из FixedStack<T>
         /// </summary>
         public void Clear()
         {
@@ -88,18 +88,18 @@ namespace Orsel
         }
 
         /// <summary>
-        /// Проверка на пустой стек.
+        /// Определяет, является ли текущий экземпляр FixedStack<T> пустым.
         /// </summary>
-        /// <returns>Логический тип данных. True - если стек пустой, в ином случае - False.</returns>
+        /// <returns>Значение true, если текущий экземпляр пуст; в противном случае — false.</returns>
         public bool IsEmpty()
         {
             return Count == 0;
         }
 
         /// <summary>
-        /// Проверка на полный стек.
+        /// Определяет, является ли текущий экземпляр FixedStack<T> полным.
         /// </summary>
-        /// <returns>Логический тип данных. True - если стек полон, в ином случае - False.</returns>
+        /// <returns>Значение true, если текущий экземпляр полон; в противном случае — false.</returns>
         public bool IsFull()
         {
             return Count == Capacity;

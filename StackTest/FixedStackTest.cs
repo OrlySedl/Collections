@@ -19,8 +19,7 @@ namespace StackTest
         public void Capacity_CreationWithSize50_50()
         {
             int expected = 50;
-            int size = 50;
-            FixedStack<int> stack = new FixedStack<int>(size);
+            FixedStack<int> stack = new FixedStack<int>(expected);
 
             Assert.AreEqual(expected, stack.Capacity);
         }
@@ -35,40 +34,16 @@ namespace StackTest
         }
 
         [TestMethod]
-        public void Count_PushElementsInStack_1_2()
+        public void Push_AddItemInStack_1_100()
         {
-            int[] expected = { 1, 2 };
-            int[] actual = new int[2];
+            int expectedCount = 1;
+            int expectedCapacity = 100;
             FixedStack<int> stack = new FixedStack<int>();
 
-            for (int i = 0; i < actual.Length; i++)
-            {
-                stack.Push(i+1);
-                actual[i] = stack.Count;
-            }
+            stack.Push(123);
 
-            for (int i = 0; i < expected.Length; i++)
-            {
-                Assert.AreEqual(expected[i], actual[i]);
-            }
-        }
-
-        [TestMethod]
-        public void Count_PopElementsFromStack_1_0()
-        {
-            int[] expected = { 1, 0 };
-            int[] actual = new int[2];
-            FixedStack<int> stack = new FixedStack<int>();
-
-            stack.Push(1);
-            actual[0] = stack.Count;
-            stack.Pop();
-            actual[1] = stack.Count;
-
-            for (int i = 0; i < expected.Length; i++)
-            {
-                Assert.AreEqual(expected[i], actual[i]);
-            }
+            Assert.AreEqual(expectedCount, stack.Count);
+            Assert.AreEqual(expectedCapacity, stack.Capacity);
         }
 
         [TestMethod]
@@ -77,7 +52,23 @@ namespace StackTest
             int size = 0;
             FixedStack<int> stack = new FixedStack<int>(size);
 
-            Assert.ThrowsException<System.InvalidOperationException>(() => stack.Push(1));
+            Assert.ThrowsException<System.InvalidOperationException>(() => stack.Push(123));
+        }
+
+        [TestMethod]
+        public void Pop_GetItemWithDelete_123_0_100()
+        {
+            int expected = 123;
+            int expectedCount = 0;
+            int expectedCapacity = 100;
+
+            FixedStack<int> stack = new FixedStack<int>();
+            
+            stack.Push(expected);
+
+            Assert.AreEqual(expected, stack.Pop());
+            Assert.AreEqual(expectedCount, stack.Count);
+            Assert.AreEqual(expectedCapacity, stack.Capacity);
         }
 
         [TestMethod]
@@ -89,29 +80,18 @@ namespace StackTest
         }
 
         [TestMethod]
-        public void Pop_GetItemWithDelete_1_0()
+        public void Top_GetItemWithoutDelete_123_1_100()
         {
-            int expected = 1;
-            int expectedCount = 0;
-            FixedStack<int> stack = new FixedStack<int>();
-            
-            stack.Push(1);
-
-            Assert.AreEqual(expected, stack.Pop());
-            Assert.AreEqual(expectedCount, stack.Count);
-        }
-
-        [TestMethod]
-        public void Top_GetItemWithoutDelete_1_1()
-        {
-            int expected = 1;
+            int expected = 123;
             int expectedCount = 1;
+            int expectedCapacity = 100;
             FixedStack<int> stack = new FixedStack<int>();
             
-            stack.Push(1);
+            stack.Push(expected);
 
             Assert.AreEqual(expected, stack.Top());
             Assert.AreEqual(expectedCount, stack.Count);
+            Assert.AreEqual(expectedCapacity, stack.Capacity);    
         }
 
         [TestMethod]
@@ -123,14 +103,16 @@ namespace StackTest
         }
 
         [TestMethod]
-        public void Clear_CleaningStack_True()
+        public void Clear_CleaningStack_True_100()
         {
+            int expectedCapacity = 100;
             FixedStack<int> stack = new FixedStack<int>();
             
-            stack.Push(1);
+            stack.Push(123);
             stack.Clear();
 
             Assert.IsTrue(stack.IsEmpty());
+            Assert.AreEqual(expectedCapacity, stack.Capacity);
         }
 
         [TestMethod]
@@ -146,7 +128,7 @@ namespace StackTest
         {
             FixedStack<int> stack = new FixedStack<int>();
             
-            stack.Push(1);
+            stack.Push(123);
 
             Assert.IsFalse(stack.IsEmpty());
         }
@@ -154,9 +136,10 @@ namespace StackTest
         [TestMethod]
         public void IsFull_StackIsFull_True()
         {
-            FixedStack<int> stack = new FixedStack<int>(1);
+            int size = 1;
+            FixedStack<int> stack = new FixedStack<int>(size);
             
-            stack.Push(1);
+            stack.Push(123);
 
             Assert.IsTrue(stack.IsFull());
         }

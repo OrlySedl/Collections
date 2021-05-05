@@ -60,9 +60,7 @@ namespace Orsel
         private void Resize(int newCapacity)
         {
             T[] tempItems = new T[newCapacity];
-            for (int i = 0; i < Count; i++)
-                tempItems[i] = items[i];
-            //Array.Copy(items, tempItems, items.Length);
+            Array.Copy(items, tempItems, Count);    
             items = tempItems;
         }
 
@@ -85,8 +83,6 @@ namespace Orsel
         {
             if (IsEmpty())
                 throw new InvalidOperationException("Стек пуст.");
-            if (0 < Count && Count < Capacity / 2)
-                Resize(Capacity / 2);
 
             return items[--Count];
         }

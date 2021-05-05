@@ -47,9 +47,10 @@ namespace StackTest
         }
 
         [TestMethod]
-        public void Push_StackResize_5_8()
+        public void Push_StackResize_5_8_123()
         {
             int size = 4;
+            int expected = 123;
             int expectedCount = 5;
             int expectedCapacity = 8;
             ArrayStack<int> stack = new ArrayStack<int>(size);
@@ -58,10 +59,11 @@ namespace StackTest
             {
                 stack.Push(i);
             }
-            stack.Push(123);
+            stack.Push(expected);
 
             Assert.AreEqual(expectedCount, stack.Count);
             Assert.AreEqual(expectedCapacity, stack.Capacity);
+            Assert.AreEqual(expected, stack.Pop());
         }
 
         [TestMethod]

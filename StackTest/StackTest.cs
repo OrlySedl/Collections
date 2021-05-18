@@ -1,16 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Orsel;
+using Orsel.Collections;
 
 namespace StackTest
 {
     [TestClass]
-    public class ArrayStackTest
+    public class StackTest
     {
         [TestMethod]
         public void Capacity_DefaultСreation_100()
         {
             int expected = 100;
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             Assert.AreEqual(expected, stack.Capacity);
         }
@@ -19,7 +19,7 @@ namespace StackTest
         public void Capacity_CreationWithSize50_50()
         {
             int expected = 50;
-            ArrayStack<int> stack = new ArrayStack<int>(expected);
+            Stack<int> stack = new Stack<int>(expected);
 
             Assert.AreEqual(expected, stack.Capacity);
         }
@@ -28,7 +28,7 @@ namespace StackTest
         public void Count_StackIsEmpty_0()
         {
             int expected = 0;
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             Assert.AreEqual(expected, stack.Count);
         }
@@ -38,7 +38,7 @@ namespace StackTest
         {
             int expectedCount = 1;
             int expectedCapacity = 100;
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             stack.Push(123);
 
@@ -53,7 +53,7 @@ namespace StackTest
             int expected = 123;
             int expectedCount = 5;
             int expectedCapacity = 8;
-            ArrayStack<int> stack = new ArrayStack<int>(size);
+            Stack<int> stack = new Stack<int>(size);
 
             for (int i = 0; i < size; i++)
             {
@@ -73,7 +73,7 @@ namespace StackTest
             int expectedCount = 0;
             int expectedCapacity = 100;
 
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             stack.Push(expected);
 
@@ -85,7 +85,7 @@ namespace StackTest
         [TestMethod]
         public void Pop_StackIsEmpty_Throws()
         {
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             Assert.ThrowsException<System.InvalidOperationException>(() => stack.Pop());
         }
@@ -96,7 +96,7 @@ namespace StackTest
             int expected = 123;
             int expectedCount = 1;
             int expectedCapacity = 100;
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             stack.Push(expected);
 
@@ -108,7 +108,7 @@ namespace StackTest
         [TestMethod]
         public void Peek_StackIsEmpty_Throws()
         {
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             Assert.ThrowsException<System.InvalidOperationException>(() => stack.Peek());
         }
@@ -117,7 +117,7 @@ namespace StackTest
         public void Clear_CleaningStack_True_100()
         {
             int expectedCapacity = 100;
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             stack.Push(123);
             stack.Clear();
@@ -129,7 +129,7 @@ namespace StackTest
         [TestMethod]
         public void IsEmpty_StackIsEmpty_True()
         {
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             Assert.IsTrue(stack.IsEmpty());
         }
@@ -137,7 +137,7 @@ namespace StackTest
         [TestMethod]
         public void IsEmpty_StackWithElements_False()
         {
-            ArrayStack<int> stack = new ArrayStack<int>();
+            Stack<int> stack = new Stack<int>();
 
             stack.Push(123);
 

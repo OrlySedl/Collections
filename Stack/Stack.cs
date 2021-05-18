@@ -19,11 +19,21 @@ namespace Orsel.Collections
         private const int defaultCapacity = 100;
 
         /// <summary>
-        /// Число элементов выделенной емкости хранилища Stack<T>.
+        /// Получает или устанавливает число элементов емкости хранилища Stack<T>.
         /// </summary>
         public int Capacity
         {
-            get { return items.Length; }
+            get
+            {
+                return items.Length;
+            }
+
+            set
+            {
+                T[] tempItems = new T[value];
+                Array.Copy(items, tempItems, Count);
+                items = tempItems;
+            }
         }
 
         /// <summary>
@@ -54,24 +64,13 @@ namespace Orsel.Collections
         }
 
         /// <summary>
-        /// Изменяет емкость хранилища текущего экземпляра Stack<T>.
-        /// </summary>
-        /// <param name="newCapacity">Новая емкость экземпляра Stack<T>.</param>
-        private void Resize(int newCapacity)
-        {
-            T[] tempItems = new T[newCapacity];
-            Array.Copy(items, tempItems, Count);    
-            items = tempItems;
-        }
-
-        /// <summary>
         /// Вставляет объект как верхний элемент Stack<T>.
         /// </summary>
         /// <param name="item">Объект, вставляемый в Stack<T>.</param>
         public void Push(T item)
         {
             if (IsFull())
-                Resize(Capacity * 2);
+                Capacity = Capacity * 2;
             items[Count++] = item;
         }
 

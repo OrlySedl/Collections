@@ -2,19 +2,40 @@
 
 namespace Orsel.Collections
 {
-    public class NodeLinkedList<T>
+    public class LinkedList<T>
     {
-        public T Data;
-        public NodeLinkedList<T> Next;
-
-        public NodeLinkedList(T data, NodeLinkedList<T> nextNode = null)
+        public LinkedListNode<T> First
         {
-            Data = data;
-            Next = nextNode;
+            get;
+            private set;
         }
-    }
 
-    public class LinkedList
-    {
+        public LinkedListNode<T> Last
+        {
+            get;
+            private set;
+        }
+
+        public int Count
+        {
+            get;
+            private set;
+        }
+
+        public LinkedList()
+        {
+            First = null;
+            Last = null;
+            Count = 0;
+        }
+
+        public void Insert(LinkedListNode<T> node, T data)
+        {
+            if(node == null)
+            {
+                First = new LinkedListNode<T>(data);
+                Last = First;
+            }
+        }
     }
 }

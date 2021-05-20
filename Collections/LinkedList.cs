@@ -29,13 +29,42 @@ namespace Orsel.Collections
             Count = 0;
         }
 
-        public void Insert(LinkedListNode<T> node, T data)
+        public LinkedListNode<T> Insert(LinkedListNode<T> node, T data)
         {
-            if(node == null)
+            LinkedListNode<T> newNode = new LinkedListNode<T>(data);
+            
+            return Insert(node, newNode);
+        }
+
+        public LinkedListNode<T> Insert(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        {
+            if (node == null)
             {
-                First = new LinkedListNode<T>(data);
-                Last = First;
+                newNode.Next = First;
+                First = newNode;
+                if (Count == 0)
+                {
+                    Last = newNode;
+                }
             }
+            else if (node == Last)
+            {
+                newNode.Next = null;
+                Last.Next = newNode;
+                Last = newNode;
+            }
+            else
+            {
+                LinkedListNode<T> p = First;
+                while (p != node)
+                {
+                    p = p.Next;
+                }
+                newNode.Next = p.Next;
+                p.Next = newNode;
+            }
+            Count++;
+            return newNode;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Orsel.Collections
             {
                 newNode.Next = First;
                 First = newNode;
-                if (Count == 0)
+                if (First == null)
                 {
                     Last = newNode;
                 }

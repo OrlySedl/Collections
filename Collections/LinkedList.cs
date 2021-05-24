@@ -2,15 +2,15 @@
 
 namespace Orsel.Collections
 {
-    public class LinkedList<T>
+    public class LinkedList
     {
-        public LinkedListNode<T> First
+        public LinkedListNode First
         {
             get;
             private set;
         }
 
-        public LinkedListNode<T> Last
+        public LinkedListNode Last
         {
             get;
             private set;
@@ -29,14 +29,14 @@ namespace Orsel.Collections
             Count = 0;
         }
 
-        public LinkedListNode<T> Insert(LinkedListNode<T> node, T data)
+        public LinkedListNode Insert(LinkedListNode node, int data)
         {
-            LinkedListNode<T> newNode = new LinkedListNode<T>(data);
+            LinkedListNode newNode = new LinkedListNode(data);
             
             return Insert(node, newNode);
         }
 
-        public LinkedListNode<T> Insert(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        public LinkedListNode Insert(LinkedListNode node, LinkedListNode newNode)
         {
             if (node == null)
             {
@@ -55,7 +55,7 @@ namespace Orsel.Collections
             }
             else
             {
-                LinkedListNode<T> p = First;
+                LinkedListNode p = First;
                 while (p != node)
                 {
                     p = p.Next;
@@ -65,6 +65,17 @@ namespace Orsel.Collections
             }
             Count++;
             return newNode;
+        }
+
+        public void Remove(int value)
+        {
+            for (LinkedListNode current = First; current != null; current = current.Next)
+            {
+                if (current.Value == value)
+                {
+                    //return true;
+                }
+            }
         }
     }
 }

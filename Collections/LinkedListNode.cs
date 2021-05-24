@@ -2,12 +2,12 @@
 
 namespace Orsel.Collections
 {
-    public class LinkedListNode<T>
+    public class LinkedListNode
     {
-        public T Value;
-        public LinkedListNode<T> Next;
+        public int Value;
+        public LinkedListNode Next;
 
-        public LinkedListNode(T value, LinkedListNode<T> node = null)
+        public LinkedListNode(int value, LinkedListNode node = null)
         {
             Value = value;
             Next = node;

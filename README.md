@@ -1,3 +1,5 @@
-# Stack
+# Collections
 
-Реализация стека на основе массива.
+## Stack
+
+## LinkedList

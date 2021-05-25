@@ -41,11 +41,11 @@ namespace Orsel.Collections
             if (node == null)
             {
                 newNode.Next = First;
-                First = newNode;
                 if (First == null)
                 {
                     Last = newNode;
                 }
+                First = newNode;
             }
             else if (node == Last)
             {

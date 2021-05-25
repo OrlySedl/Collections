@@ -29,9 +29,9 @@ namespace Orsel.Collections
             Count = 0;
         }
 
-        public LinkedListNode Insert(LinkedListNode node, int data)
+        public LinkedListNode Insert(LinkedListNode node, int value)
         {
-            LinkedListNode newNode = new LinkedListNode(data);
+            LinkedListNode newNode = new LinkedListNode(value);
             
             return Insert(node, newNode);
         }
@@ -67,15 +67,32 @@ namespace Orsel.Collections
             return newNode;
         }
 
-        public void Remove(int value)
+        public LinkedListNode Remove(int value)
         {
+            LinkedListNode prev = First;
             for (LinkedListNode current = First; current != null; current = current.Next)
             {
                 if (current.Value == value)
                 {
-                    //return true;
+                    prev.Next = current.Next;
+                    return current;
                 }
+                prev = current;
             }
+            return null;
+        }
+
+        public LinkedListNode Remove(LinkedListNode prevNode, LinkedListNode removeNode)
+        {
+            if (prevNode == null)
+            {
+                First = removeNode.Next;
+            }
+            else
+            {
+                prevNode.Next = removeNode.Next;
+            }
+            return removeNode;
         }
     }
 }

@@ -29,6 +29,34 @@ namespace Orsel.Collections
             Count = 0;
         }
 
+        public LinkedListNode Next(LinkedListNode node = null)
+        {
+            if (node == null)
+            {
+                return First;
+            }
+            else if (node == Last)
+            {
+                return null;
+            }
+            else
+            {
+                return node.Next;
+            }
+        }
+
+        public LinkedListNode Search(int value)
+        {
+            for (LinkedListNode current = First; current != null; current = current.Next)
+            {
+                if (current.Value == value)
+                {
+                    return current;
+                }
+            }
+            return null;
+        }
+
         public LinkedListNode Insert(LinkedListNode node, int value)
         {
             LinkedListNode newNode = new LinkedListNode(value);

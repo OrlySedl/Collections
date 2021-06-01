@@ -9,8 +9,10 @@ namespace Orsel.Collections
 
         public int Capacity
         {
-            get;
-            set;
+            get
+            {
+                return array.Length;
+            }
         }
 
         public int Count

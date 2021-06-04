@@ -2,4 +2,6 @@
 
 ## Stack
 
+## Queue
+
 ## LinkedList

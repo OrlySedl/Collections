@@ -69,5 +69,26 @@ namespace Orsel.Collections
 
             return item;
         }
+
+        public int Peek()
+        {
+            if (Count == 0)
+            {
+                throw new InvalidOperationException("Очередь пуста");
+            }
+
+            return array[first];
+        }
+
+        public void Clear()
+        {
+            Count = 0;
+            first = last;
+        }
+
+        public bool IsEmpty()
+        {
+            return Count == 0;
+        }
     }
 }

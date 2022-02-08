@@ -30,7 +30,6 @@ namespace Orsel.Collections
 
             set
             {
-
                 Array.Resize<T>(ref array, value);
             }
         }
@@ -57,7 +56,7 @@ namespace Orsel.Collections
         {
             if (capacity < 0)
             {
-                throw new ArgumentOutOfRangeException("Емкость массива не может быть отрицательной.");
+                throw new ArgumentOutOfRangeException("Емкость стека не может быть отрицательной.");
             }
             array = new T[capacity];
         }

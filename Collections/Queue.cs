@@ -2,12 +2,13 @@
 
 namespace Orsel.Collections
 {
-    public class Queue
+    public class Queue<T>
     {
-        private int[] array;
-        private const int defaultCapacity = 100;
+        private T[] array;
         private int first;
         private int last;
+
+        private const int defaultCapacity = 4;  
 
         public int Capacity
         {
@@ -18,7 +19,7 @@ namespace Orsel.Collections
 
             set
             {
-                int[] tempArray = new int[value];
+                T[] tempArray = new T[value];
                 Array.Copy(array, first, tempArray, last, Count);    
                 Array.Copy(array, tempArray, Count);
                 array = tempArray;
@@ -31,13 +32,26 @@ namespace Orsel.Collections
             private set;
         }
 
-        
-        public Queue(int capacity = defaultCapacity)
+        public Queue()
         {
-            array = new int[capacity];
+            array = Array.Empty<T>();
         }
 
-        public void Enqueue(int item)
+        public Queue(int capacity)
+        {
+            if (capacity < 0)
+            {
+                throw new ArgumentOutOfRangeException("Емкость очереди не может быть отрицательной.");
+            }
+            array = new T[capacity];
+        }
+
+        private bool IsFull()
+        {
+            return Count == Capacity;
+        }
+
+        public void Enqueue(T item)
         {
             array[last] = item;
             Count++;
@@ -50,14 +64,14 @@ namespace Orsel.Collections
             last = tmp;
         }
 
-        public int Dequeue()
+        public T Dequeue()
         {
             if (Count == 0)
             {
                 throw new InvalidOperationException("Очередь пуста.");
             }
 
-            int item = array[first];
+            T item = array[first];
             Count--;
 
             int tmp = first + 1;
@@ -70,7 +84,7 @@ namespace Orsel.Collections
             return item;
         }
 
-        public int Peek()
+        public T Peek()
         {
             if (Count == 0)
             {
@@ -82,8 +96,21 @@ namespace Orsel.Collections
 
         public void Clear()
         {
-            Count = 0;
-            first = last;
+            if (!IsEmpty())
+            {
+                if (first < last)
+                {
+                    Array.Clear(array, first, Count);
+                }
+                else
+                {
+                    Array.Clear(array, first, array.Length - first);
+                    Array.Clear(array, 0, last);
+                }
+                Count = 0;
+            }
+            first = 0;
+            last = 0;
         }
 
         public bool IsEmpty()

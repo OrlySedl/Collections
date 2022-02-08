@@ -20,9 +20,21 @@ namespace Orsel.Collections
             set
             {
                 T[] tempArray = new T[value];
-                Array.Copy(array, first, tempArray, last, Count);    
-                Array.Copy(array, tempArray, Count);
+                if (!IsEmpty())
+                {
+                    if (first < last)
+                    {
+                        Array.Copy(array, first, tempArray, 0, Count);
+                    }
+                    else
+                    {
+                        Array.Copy(array, first, tempArray, 0, array.Length - first);
+                        Array.Copy(array, 0, tempArray, array.Length - first, last);
+                    }
+                }
                 array = tempArray;
+                first = 0;
+                last = Count;
             }
         }
 
@@ -53,40 +65,40 @@ namespace Orsel.Collections
 
         public void Enqueue(T item)
         {
-            array[last] = item;
-            Count++;
-
-            int tmp = last + 1;
-            if (tmp == array.Length)
+            if (IsFull())
             {
-                tmp = 0;
+                Capacity = Capacity == 0 ? defaultCapacity : Capacity * 2;
             }
-            last = tmp;
+
+            array[last++] = item;
+            if (last == Capacity)
+            {
+                last = 0;
+            }
+            Count++;
         }
 
         public T Dequeue()
         {
-            if (Count == 0)
+            if (IsEmpty())
             {
                 throw new InvalidOperationException("Очередь пуста.");
             }
 
             T item = array[first];
-            Count--;
-
-            int tmp = first + 1;
-            if (tmp == array.Length)
+            array[first++] = default!;
+            if (first == Capacity)
             {
-                tmp = 0;
+                first = 0;
             }
-            first = tmp;
+            Count--;
 
             return item;
         }
 
         public T Peek()
         {
-            if (Count == 0)
+            if (IsEmpty())
             {
                 throw new InvalidOperationException("Очередь пуста");
             }

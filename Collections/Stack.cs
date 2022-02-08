@@ -11,12 +11,12 @@ namespace Orsel.Collections
         /// <summary>
         /// Массив содержащий элементы Stack<T>.
         /// </summary>
-        private T[] items;
+        private T[] array;
 
         /// <summary>
         /// Емкость хранилища Stack<T> по умолчанию.
         /// </summary>
-        private const int defaultCapacity = 100;
+        private const int defaultCapacity = 4;
 
         /// <summary>
         /// Получает или устанавливает число элементов емкости хранилища Stack<T>.
@@ -25,14 +25,14 @@ namespace Orsel.Collections
         {
             get
             {
-                return items.Length;
+                return array.Length;
             }
 
             set
             {
                 T[] tempItems = new T[value];
-                Array.Copy(items, tempItems, Count);
-                items = tempItems;
+                Array.Copy(array, tempItems, Count);
+                array = tempItems;
             }
         }
 
@@ -51,7 +51,11 @@ namespace Orsel.Collections
         /// <param name="сapacity">Начальное количество элементов, которое может содержать Stack<T>. По умолчанию значение равно 100.</param>
         public Stack(int capacity = defaultCapacity)
         {
-            items = new T[capacity];
+            if (capacity < 0)
+            {
+                throw new ArgumentOutOfRangeException("Емкость массива не может быть отрицательной.");
+            }
+            array = new T[capacity];
         }
 
         /// <summary>
@@ -71,7 +75,7 @@ namespace Orsel.Collections
         {
             if (IsFull())
                 Capacity = Capacity * 2;
-            items[Count++] = item;
+            array[Count++] = item;
         }
 
         /// <summary>
@@ -83,7 +87,7 @@ namespace Orsel.Collections
             if (IsEmpty())
                 throw new InvalidOperationException("Стек пуст.");
 
-            return items[--Count];
+            return array[--Count];
         }
 
         /// <summary>
@@ -95,7 +99,7 @@ namespace Orsel.Collections
             if (IsEmpty())
                 throw new InvalidOperationException("Стек пуст.");
 
-            return items[Count - 1];
+            return array[Count - 1];
         }
 
         /// <summary>
@@ -103,6 +107,7 @@ namespace Orsel.Collections
         /// </summary>
         public void Clear()
         {
+            Array.Clear(array, 0, Count);
             Count = 0;
         }
 

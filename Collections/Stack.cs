@@ -92,7 +92,7 @@ namespace Orsel.Collections
                 throw new InvalidOperationException("Стек пуст.");
 
             T item = array[--Count];
-            array[Count] = default;
+            array[Count] = default!;
             return item;
         }
 

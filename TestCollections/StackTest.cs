@@ -7,74 +7,77 @@ namespace TestCollections
     public class StackTest
     {
         [TestMethod]
-        public void Capacity_DefaultСreation_100()
+        public void Ctor_EmptyStackСreation()
         {
-            int expected = 100;
-            Stack<int> stack = new Stack<int>();
+            int expectedCapacity = 0;
+            int expectedCount = 0;
 
-            Assert.AreEqual(expected, stack.Capacity);
-        }
+            Stack<int> stack = new();
 
-        [TestMethod]
-        public void Capacity_CreationWithSize50_50()
-        {
-            int expected = 50;
-            Stack<int> stack = new Stack<int>(expected);
-
-            Assert.AreEqual(expected, stack.Capacity);
-        }
-
-        [TestMethod]
-        public void Count_StackIsEmpty_0()
-        {
-            int expected = 0;
-            Stack<int> stack = new Stack<int>();
-
-            Assert.AreEqual(expected, stack.Count);
-        }
-
-        [TestMethod]
-        public void Push_AddItemInStack_1_100()
-        {
-            int expectedCount = 1;
-            int expectedCapacity = 100;
-            Stack<int> stack = new Stack<int>();
-
-            stack.Push(123);
-
-            Assert.AreEqual(expectedCount, stack.Count);
             Assert.AreEqual(expectedCapacity, stack.Capacity);
+            Assert.AreEqual(expectedCount, stack.Count);
         }
 
         [TestMethod]
-        public void Push_StackResize_5_8_123()
+        public void Ctor_CreationWithSize10()
         {
-            int size = 4;
-            int expected = 123;
-            int expectedCount = 5;
-            int expectedCapacity = 8;
-            Stack<int> stack = new Stack<int>(size);
+            int expectedCapacity = 10;
+            int expectedCount = 0;
 
-            for (int i = 0; i < size; i++)
+            Stack<int> stack = new(expectedCapacity);
+
+            Assert.AreEqual(expectedCapacity, stack.Capacity);
+            Assert.AreEqual(expectedCount, stack.Count);
+        }
+
+        [TestMethod]
+        public void CtorThrows_СreationWithNegativeSize()
+        {
+            Stack<int> stack;
+
+            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => stack = new(-1));
+        }
+
+        [TestMethod]
+        public void PushStackResize_AddItemsInEmptyStack()
+        {
+            int expectedCount = 3;
+            int expectedCapacity = 4;
+
+            Stack<int> stack = new();
+            for (int i = 0; i < expectedCount; i++)
             {
                 stack.Push(i);
             }
-            stack.Push(expected);
 
             Assert.AreEqual(expectedCount, stack.Count);
             Assert.AreEqual(expectedCapacity, stack.Capacity);
-            Assert.AreEqual(expected, stack.Pop());
         }
 
         [TestMethod]
-        public void Pop_GetItemWithDelete_123_0_100()
+        public void PushStackResize_AddItemsInStack()
+        {
+            int expectedCount = 9;
+            int expectedCapacity = 10;
+
+            Stack<int> stack = new(expectedCapacity);
+            for (int i = 0; i < expectedCount; i++)
+            {
+                stack.Push(i);
+            }
+
+            Assert.AreEqual(expectedCount, stack.Count);
+            Assert.AreEqual(expectedCapacity, stack.Capacity);
+        }
+
+        [TestMethod]
+        public void Pop_GetItemWithDelete()
         {
             int expected = 123;
             int expectedCount = 0;
-            int expectedCapacity = 100;
+            int expectedCapacity = 4;
 
-            Stack<int> stack = new Stack<int>();
-
+            Stack<int> stack = new();
             stack.Push(expected);
 
             Assert.AreEqual(expected, stack.Pop());
@@ -83,21 +86,21 @@ namespace TestCollections
         }
 
         [TestMethod]
-        public void Pop_StackIsEmpty_Throws()
+        public void PopThrows_StackIsEmpty()
         {
-            Stack<int> stack = new Stack<int>();
+            Stack<int> stack = new();
 
             Assert.ThrowsException<System.InvalidOperationException>(() => stack.Pop());
         }
 
         [TestMethod]
-        public void Peek_GetItemWithoutDelete_123_1_100()
+        public void Peek_GetItemWithoutDelete()
         {
             int expected = 123;
             int expectedCount = 1;
-            int expectedCapacity = 100;
-            Stack<int> stack = new Stack<int>();
+            int expectedCapacity = 4;
 
+            Stack<int> stack = new();
             stack.Push(expected);
 
             Assert.AreEqual(expected, stack.Peek());
@@ -106,39 +109,40 @@ namespace TestCollections
         }
 
         [TestMethod]
-        public void Peek_StackIsEmpty_Throws()
+        public void PeekThrows_StackIsEmpty()
         {
-            Stack<int> stack = new Stack<int>();
+            Stack<int> stack = new();
 
             Assert.ThrowsException<System.InvalidOperationException>(() => stack.Peek());
         }
 
         [TestMethod]
-        public void Clear_CleaningStack_True_100()
+        public void Clear_CleaningStack()
         {
-            int expectedCapacity = 100;
-            Stack<int> stack = new Stack<int>();
+            int expectedCapacity = 4;
+            int expectedCount = 0;
+            Stack<int> stack = new();
 
             stack.Push(123);
             stack.Clear();
 
             Assert.IsTrue(stack.IsEmpty());
             Assert.AreEqual(expectedCapacity, stack.Capacity);
+            Assert.AreEqual(expectedCount, stack.Count);
         }
 
         [TestMethod]
-        public void IsEmpty_StackIsEmpty_True()
+        public void IsEmpty_StackIsEmpty()
         {
-            Stack<int> stack = new Stack<int>();
+            Stack<int> stack = new();
 
             Assert.IsTrue(stack.IsEmpty());
         }
 
         [TestMethod]
-        public void IsEmpty_StackWithElements_False()
+        public void IsEmpty_StackWithElements()
         {
-            Stack<int> stack = new Stack<int>();
-
+            Stack<int> stack = new();
             stack.Push(123);
 
             Assert.IsFalse(stack.IsEmpty());

@@ -30,9 +30,7 @@ namespace Orsel.Collections
 
             set
             {
-                T[] tempItems = new T[value];
-                Array.Copy(array, tempItems, Count);
-                array = tempItems;
+                Array.Resize<T>(ref array, value);
             }
         }
 
@@ -87,7 +85,9 @@ namespace Orsel.Collections
             if (IsEmpty())
                 throw new InvalidOperationException("Стек пуст.");
 
-            return array[--Count];
+            T item = array[--Count];
+            array[Count] = default;
+            return item;
         }
 
         /// <summary>

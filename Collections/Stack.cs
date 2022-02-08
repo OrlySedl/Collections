@@ -19,7 +19,7 @@ namespace Orsel.Collections
         private const int defaultCapacity = 4;
 
         /// <summary>
-        /// Получает или устанавливает число элементов емкости хранилища Stack<T>.
+        /// Получает или устанавливает число элементов емкости хранилища Stack.
         /// </summary>
         public int Capacity
         {
@@ -30,6 +30,7 @@ namespace Orsel.Collections
 
             set
             {
+
                 Array.Resize<T>(ref array, value);
             }
         }
@@ -43,11 +44,16 @@ namespace Orsel.Collections
             private set;
         }
 
+        public Stack()
+        {
+            array = Array.Empty<T>();
+        }
+
         /// <summary>
         ///  Инициализирует новый экземпляр класса Stack<T>, который является пустым и обладает указанной начальной емкостью или емкостью по умолчанию.
         /// </summary>
         /// <param name="сapacity">Начальное количество элементов, которое может содержать Stack<T>. По умолчанию значение равно 100.</param>
-        public Stack(int capacity = defaultCapacity)
+        public Stack(int capacity)
         {
             if (capacity < 0)
             {
@@ -72,7 +78,7 @@ namespace Orsel.Collections
         public void Push(T item)
         {
             if (IsFull())
-                Capacity = Capacity * 2;
+                Capacity = Capacity == 0 ? defaultCapacity : Capacity * 2;
             array[Count++] = item;
         }
 

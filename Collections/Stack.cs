@@ -107,6 +107,15 @@ namespace Orsel.Collections
             return array[Count - 1];
         }
 
+        public void TrimExcess()
+        {
+            int maxLength = (int)(Capacity * 0.9);
+            if (Count < maxLength)
+            {
+                Capacity = Count;
+            }
+        }
+
         /// <summary>
         /// Удаляет все объекты из Stack<T>
         /// </summary>

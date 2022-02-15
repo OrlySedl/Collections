@@ -19,7 +19,7 @@ namespace Orsel.Collections
         private const int defaultCapacity = 4;
 
         /// <summary>
-        /// Получает или устанавливает число элементов емкости хранилища Stack.
+        /// Получает или устанавливает емкость хранилища Stack<T>.
         /// </summary>
         public int Capacity
         {
@@ -43,15 +43,18 @@ namespace Orsel.Collections
             private set;
         }
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса Stack<T>, который является пустым.
+        /// </summary>
         public Stack()
         {
             array = Array.Empty<T>();
         }
 
         /// <summary>
-        ///  Инициализирует новый экземпляр класса Stack<T>, который является пустым и обладает указанной начальной емкостью или емкостью по умолчанию.
+        ///  Инициализирует новый экземпляр класса Stack<T>, который обладает указанной начальной емкостью.
         /// </summary>
-        /// <param name="сapacity">Начальное количество элементов, которое может содержать Stack<T>. По умолчанию значение равно 100.</param>
+        /// <param name="сapacity">Начальное количество элементов, которое может содержать Stack<T>, значение не может быть отрицательным.</param>
         public Stack(int capacity)
         {
             if (capacity < 0)
@@ -107,6 +110,9 @@ namespace Orsel.Collections
             return array[Count - 1];
         }
 
+        /// <summary>
+        /// Устанавливает емкость равной фактическому количеству элементов в Stack<T>, если это количество составляет менее 90 процентов текущей емкости.
+        /// </summary>
         public void TrimExcess()
         {
             int maxLength = (int)(Capacity * 0.9);
@@ -117,7 +123,7 @@ namespace Orsel.Collections
         }
 
         /// <summary>
-        /// Удаляет все объекты из Stack<T>
+        /// Удаляет все объекты из Stack<T>.
         /// </summary>
         public void Clear()
         {

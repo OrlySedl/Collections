@@ -33,9 +33,11 @@ namespace TestCollections
         [TestMethod]
         public void CtorThrows_СreationWithNegativeSize()
         {
+            int stackSize = -1;
+
             Stack<int> stack;
 
-            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => stack = new(-1));
+            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => stack = new(stackSize));
         }
 
         [TestMethod]
@@ -73,14 +75,14 @@ namespace TestCollections
         [TestMethod]
         public void Pop_GetItemWithDelete()
         {
-            int expected = 123;
+            int expectedItem = 123;
             int expectedCount = 0;
             int expectedCapacity = 4;
 
             Stack<int> stack = new();
-            stack.Push(expected);
+            stack.Push(expectedItem);
 
-            Assert.AreEqual(expected, stack.Pop());
+            Assert.AreEqual(expectedItem, stack.Pop());
             Assert.AreEqual(expectedCount, stack.Count);
             Assert.AreEqual(expectedCapacity, stack.Capacity);
         }
@@ -96,14 +98,14 @@ namespace TestCollections
         [TestMethod]
         public void Peek_GetItemWithoutDelete()
         {
-            int expected = 123;
+            int expectedItem = 123;
             int expectedCount = 1;
             int expectedCapacity = 4;
 
             Stack<int> stack = new();
-            stack.Push(expected);
+            stack.Push(expectedItem);
 
-            Assert.AreEqual(expected, stack.Peek());
+            Assert.AreEqual(expectedItem, stack.Peek());
             Assert.AreEqual(expectedCount, stack.Count);
             Assert.AreEqual(expectedCapacity, stack.Capacity);
         }
@@ -117,13 +119,48 @@ namespace TestCollections
         }
 
         [TestMethod]
+        public void TrimExcess_ReducingStackCapacity()
+        {
+            int stackSize = 100;
+            int expectedCapacity = 10;
+
+            Stack<int> stack = new(stackSize);
+            for (int i = 0; i < expectedCapacity; i++)
+            {
+                stack.Push(i);
+            }
+            stack.TrimExcess();
+
+            Assert.AreEqual(expectedCapacity, stack.Count);
+            Assert.AreEqual(expectedCapacity, stack.Capacity);
+        }
+
+        [TestMethod]
+        public void TrimExcess_PreviousStackCapacity()
+        {
+            int stackSize = 100;
+            int expectedCapacity = 90;
+
+            Stack<int> stack = new(stackSize);
+            for (int i = 0; i < expectedCapacity; i++)
+            {
+                stack.Push(i);
+            }
+            stack.TrimExcess();
+
+            Assert.AreEqual(expectedCapacity, stack.Count);
+            Assert.AreNotEqual(expectedCapacity, stack.Capacity);
+        }
+
+        [TestMethod]
         public void Clear_CleaningStack()
         {
             int expectedCapacity = 4;
             int expectedCount = 0;
-            Stack<int> stack = new();
+            int item = 123;
 
-            stack.Push(123);
+            Stack<int> stack = new();
+            stack.Push(item);
             stack.Clear();
 
             Assert.IsTrue(stack.IsEmpty());
@@ -142,8 +179,10 @@ namespace TestCollections
         [TestMethod]
         public void IsEmpty_StackWithElements()
         {
+            int item = 123;
+
             Stack<int> stack = new();
-            stack.Push(123);
+            stack.Push(item);
 
             Assert.IsFalse(stack.IsEmpty());
         }
